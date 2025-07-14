@@ -1,0 +1,28 @@
+{
+  "name": "ClubOS Lite",
+  "description": "Modular LLM switchboard for Clubhouse 24/7 Golf with tone control, SOP routing, and memory.",
+  "entry": "backend/main.py",
+  "frontend": "frontend/index.html",
+  "llms": [
+    "EmergencyLLM",
+    "BookingLLM",
+    "TrackManLLM",
+    "ResponseToneLLM",
+    "VanillaLLM"
+  ],
+  "endpoints": [
+    "/ask",
+    "/test",
+    "/status",
+    "/reset-memory",
+    "/selftest"
+  ],
+  "modules": {
+    "routing": "backend/llm_router.py",
+    "llm_client": "backend/utils/llm_client.py",
+    "embedding": "backend/utils/embedder.py",
+    "function_stub": "backend/utils/function_stub.py"
+  },
+  "logs": "logs/history_*.jsonl",
+  "env": ".env"
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ClubOS Lite</title>
+    <style>
+        body { font-family: sans-serif; margin: 2rem; background: #111; color: #eee; }
+        select, textarea, button { font-size: 1rem; margin-top: 1rem; width: 100%; }
+        textarea { height: 100px; }
+        #response {
+            margin-top: 2rem;
+            background: #222;
+            padding: 1rem;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .timestamp {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 0.5rem;
+        }
+        .row { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    <h1>ClubOS Lite</h1>
+
+    <label for="llm" title="Auto chooses based on keywords. Or select manually.">Choose LLM:</label>
+    <select id="llm">
+        <option value="auto">Auto</option>
+        <option value="EmergencyLLM">Emergency</option>
+        <option value="BookingLLM">Booking</option>
+        <option value="TrackManLLM">TrackMan</option>
+        <option value="ResponseToneLLM">Response Tone</option>
+        <option value="VanillaLLM">Vanilla</option>
+    </select>
+
+    <textarea id="question" placeholder="Type your question here..."></textarea>
+    <div class="row">
+        <button onclick="ask()">Ask</button>
+        <button onclick="resetMemory()">Reset Memory</button>
+    </div>
+
+    <div id="response"></div>
+    <div id="timestamp" class="timestamp"></div>
+
+    <script>
+        async function ask() {
+            const question = document.getElementById('question').value;
+            const llm = document.getElementById('llm').value;
+            const auth = "dev123";
+
+            const res = await fetch(`/ask?auth=${auth}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question, llm })
+            });
+
+            const data = await res.json();
+            document.getElementById('response').innerText = data.response;
+            document.getElementById('timestamp').innerText = "Answered at: " + new Date().toLocaleTimeString();
+        }
+
+        async function resetMemory() {
+            const auth = "dev123";
+            await fetch(`/reset-memory?auth=${auth}`);
+            alert("Memory reset.");
+        }
+    </script>
+</body>
+</html>
