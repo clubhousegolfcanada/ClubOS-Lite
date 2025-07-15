@@ -6,6 +6,12 @@
     <meta name="theme-color" content="#0a0a0a">
     <title>ClubOS Lite</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/form.css">
+    <link rel="stylesheet" href="styles/cards.css">
+    <link rel="stylesheet" href="styles/responsive.css">
     <script>
         // Early theme detection to prevent flash
         (function() {
@@ -17,6 +23,7 @@
             }
         })();
     </script>
+    <script type="module" src="scripts/app.js"></script>
     <style>
         /* Theme Variables */
         :root[data-theme="dark"] {
@@ -671,6 +678,7 @@
     </div>
 
     <script>
+        // Legacy inline scripts - these will be moved to modules
         // Theme Management
         const themeToggle = document.getElementById('themeToggle');
         const htmlElement = document.documentElement;
